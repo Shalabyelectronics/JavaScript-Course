@@ -1,6 +1,7 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
 
+// You can define your function from any where on your script but it is a good practice to keep them on the top.
 function add(num1, num2) {
   const result = num1 + num2;
   // Using an alert inside a function is not a good practice
