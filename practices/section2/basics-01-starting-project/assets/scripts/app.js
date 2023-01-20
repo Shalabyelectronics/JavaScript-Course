@@ -1,6 +1,7 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
 let logEntriesList = [];
+let countLog = -1;
 
 // You can define your function from any where on your script but it is a good practice to keep them on the top.
 
@@ -16,7 +17,6 @@ function pushLogEntries(operation, prevResult, number, result) {
     result: result,
   };
   logEntriesList.push(logEntry);
-  return logEntries;
 }
 
 function createAndWriteOutput(operator, resultBeforeCalc, calcNum) {
@@ -42,6 +42,8 @@ function add() {
   currentResult += enteredNumber;
   outputResult(currentResult, calculationDescription);
   pushLogEntries("ADD", initResult, enteredNumber, currentResult);
+  countLog++;
+  console.log(logEntriesList[countLog].operation);
   // Using an alert inside a function is not a good practice
   // alert(result);
   // But is a good practice to add return keyword instead to return the value
@@ -59,6 +61,8 @@ function substract() {
   currentResult -= enteredNumber;
   outputResult(currentResult, calculationDescription);
   pushLogEntries("SUB", initResult, enteredNumber, currentResult);
+  countLog++;
+  console.log(logEntriesList[countLog].operation);
 }
 function multiplay() {
   const enteredNumber = getUserNumberInput();
@@ -71,6 +75,8 @@ function multiplay() {
   currentResult *= enteredNumber;
   outputResult(currentResult, calculationDescription);
   pushLogEntries("MULT", initResult, enteredNumber, currentResult);
+  countLog++;
+  console.log(logEntriesList[countLog].operation);
 }
 function divide() {
   const enteredNumber = getUserNumberInput();
@@ -83,6 +89,8 @@ function divide() {
   currentResult /= enteredNumber;
   outputResult(currentResult, calculationDescription);
   pushLogEntries("DIV", initResult, enteredNumber, currentResult);
+  countLog++;
+  console.log(logEntriesList[countLog].operation);
 }
 
 // currentResult = ((currentResult + 10) * 3) / 2 - 1;
