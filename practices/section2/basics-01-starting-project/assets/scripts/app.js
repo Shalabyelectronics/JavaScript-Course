@@ -1,6 +1,6 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
-let logEntries = [];
+let logEntriesList = [];
 
 // You can define your function from any where on your script but it is a good practice to keep them on the top.
 
@@ -8,7 +8,14 @@ function getUserNumberInput() {
   return parseInt(userInput.value);
 }
 
-function showResultLog() {
+function pushLogEntries(operation, prevResult, number, result) {
+  logEntry = {
+    operation: operation,
+    pervResult: prevResult,
+    number: number,
+    result: result,
+  };
+  logEntriesList.push(logEntry);
   return logEntries;
 }
 
@@ -31,9 +38,10 @@ function add() {
     currentResult,
     enteredNumber
   );
+  const initResult = currentResult;
   currentResult += enteredNumber;
   outputResult(currentResult, calculationDescription);
-  logEntries.push(currentResult);
+  pushLogEntries("ADD", initResult, enteredNumber, currentResult);
   // Using an alert inside a function is not a good practice
   // alert(result);
   // But is a good practice to add return keyword instead to return the value
@@ -47,9 +55,10 @@ function substract() {
     currentResult,
     enteredNumber
   );
+  const initResult = currentResult;
   currentResult -= enteredNumber;
   outputResult(currentResult, calculationDescription);
-  logEntries.push(currentResult);
+  pushLogEntries("SUB", initResult, enteredNumber, currentResult);
 }
 function multiplay() {
   const enteredNumber = getUserNumberInput();
@@ -58,9 +67,10 @@ function multiplay() {
     currentResult,
     enteredNumber
   );
+  const initResult = currentResult;
   currentResult *= enteredNumber;
   outputResult(currentResult, calculationDescription);
-  logEntries.push(currentResult);
+  pushLogEntries("MULT", initResult, enteredNumber, currentResult);
 }
 function divide() {
   const enteredNumber = getUserNumberInput();
@@ -69,9 +79,10 @@ function divide() {
     currentResult,
     enteredNumber
   );
+  const initResult = currentResult;
   currentResult /= enteredNumber;
   outputResult(currentResult, calculationDescription);
-  logEntries.push(currentResult);
+  pushLogEntries("DIV", initResult, enteredNumber, currentResult);
 }
 
 // currentResult = ((currentResult + 10) * 3) / 2 - 1;
