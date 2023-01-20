@@ -26,9 +26,8 @@ function add() {
     currentResult,
     enteredNumber
   );
-  const result = currentResult + enteredNumber;
-  outputResult(result, calculationDescription);
-  currentResult = result;
+  currentResult += enteredNumber;
+  outputResult(currentResult, calculationDescription);
   // Using an alert inside a function is not a good practice
   // alert(result);
   // But is a good practice to add return keyword instead to return the value
@@ -42,9 +41,8 @@ function substract() {
     currentResult,
     enteredNumber
   );
-  const result = currentResult - enteredNumber;
-  outputResult(result, calculationDescription);
-  currentResult = result;
+  currentResult -= enteredNumber;
+  outputResult(currentResult, calculationDescription);
 }
 function multiplay() {
   const enteredNumber = getUserNumberInput();
@@ -53,9 +51,8 @@ function multiplay() {
     currentResult,
     enteredNumber
   );
-  const result = currentResult * enteredNumber;
-  outputResult(result, calculationDescription);
-  currentResult = result;
+  currentResult *= enteredNumber;
+  outputResult(currentResult, calculationDescription);
 }
 function divide() {
   const enteredNumber = getUserNumberInput();
@@ -64,9 +61,8 @@ function divide() {
     currentResult,
     enteredNumber
   );
-  const result = currentResult / enteredNumber;
-  outputResult(result, calculationDescription);
-  currentResult = result;
+  currentResult /= enteredNumber;
+  outputResult(currentResult, calculationDescription);
 }
 
 // currentResult = ((currentResult + 10) * 3) / 2 - 1;
