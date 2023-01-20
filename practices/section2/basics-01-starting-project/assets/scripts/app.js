@@ -2,10 +2,16 @@ const defaultResult = 0;
 let currentResult = defaultResult;
 
 // You can define your function from any where on your script but it is a good practice to keep them on the top.
-function add(num1, num2) {
-  const result = currentResult + userInput.value;
+function add() {
+  // ----------------------------------------
+  // To Check the type of data stored in variable
+  // console.log(typeof userInput.value);
+  // ----------------------------------------
+
+  const result = currentResult + parseInt(userInput.value);
   let calculationDescription = `${currentResult} + ${userInput.value}`;
   outputResult(result, calculationDescription);
+  currentResult = result;
   // Using an alert inside a function is not a good practice
   // alert(result);
   // But is a good practice to add return keyword instead to return the value
