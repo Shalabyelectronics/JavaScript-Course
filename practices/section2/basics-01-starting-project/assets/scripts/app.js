@@ -1,10 +1,15 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
+let logEntries = [];
 
 // You can define your function from any where on your script but it is a good practice to keep them on the top.
 
 function getUserNumberInput() {
   return parseInt(userInput.value);
+}
+
+function showResultLog() {
+  return logEntries;
 }
 
 function createAndWriteOutput(operator, resultBeforeCalc, calcNum) {
@@ -28,6 +33,7 @@ function add() {
   );
   currentResult += enteredNumber;
   outputResult(currentResult, calculationDescription);
+  logEntries.push(currentResult);
   // Using an alert inside a function is not a good practice
   // alert(result);
   // But is a good practice to add return keyword instead to return the value
@@ -43,6 +49,7 @@ function substract() {
   );
   currentResult -= enteredNumber;
   outputResult(currentResult, calculationDescription);
+  logEntries.push(currentResult);
 }
 function multiplay() {
   const enteredNumber = getUserNumberInput();
@@ -53,6 +60,7 @@ function multiplay() {
   );
   currentResult *= enteredNumber;
   outputResult(currentResult, calculationDescription);
+  logEntries.push(currentResult);
 }
 function divide() {
   const enteredNumber = getUserNumberInput();
@@ -63,6 +71,7 @@ function divide() {
   );
   currentResult /= enteredNumber;
   outputResult(currentResult, calculationDescription);
+  logEntries.push(currentResult);
 }
 
 // currentResult = ((currentResult + 10) * 3) / 2 - 1;
