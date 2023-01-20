@@ -7,6 +7,9 @@ function getUserNumberInput() {
   return parseInt(userInput.value);
 }
 
+function createAndWriteOutput(operator, resultBeforeCalc, calcNum) {
+  return `${resultBeforeCalc} ${operator} ${calcNum}`;
+}
 function add() {
   // ----------------------------------------
   // To Check the type of data stored in variable
@@ -18,15 +21,52 @@ function add() {
   // ----------------------------------------
   const enteredNumber = getUserNumberInput();
   // so You need just to edit  getUserNumberInput function and it will change every where
-
+  let calculationDescription = createAndWriteOutput(
+    "+",
+    currentResult,
+    enteredNumber
+  );
   const result = currentResult + enteredNumber;
-  let calculationDescription = `${currentResult} + ${enteredNumber}`;
   outputResult(result, calculationDescription);
   currentResult = result;
   // Using an alert inside a function is not a good practice
   // alert(result);
   // But is a good practice to add return keyword instead to return the value
   // return result;
+}
+
+function substract() {
+  const enteredNumber = getUserNumberInput();
+  let calculationDescription = createAndWriteOutput(
+    "-",
+    currentResult,
+    enteredNumber
+  );
+  const result = currentResult - enteredNumber;
+  outputResult(result, calculationDescription);
+  currentResult = result;
+}
+function multiplay() {
+  const enteredNumber = getUserNumberInput();
+  let calculationDescription = createAndWriteOutput(
+    "*",
+    currentResult,
+    enteredNumber
+  );
+  const result = currentResult * enteredNumber;
+  outputResult(result, calculationDescription);
+  currentResult = result;
+}
+function divide() {
+  const enteredNumber = getUserNumberInput();
+  let calculationDescription = createAndWriteOutput(
+    "/",
+    currentResult,
+    enteredNumber
+  );
+  const result = currentResult / enteredNumber;
+  outputResult(result, calculationDescription);
+  currentResult = result;
 }
 
 // currentResult = ((currentResult + 10) * 3) / 2 - 1;
@@ -41,3 +81,6 @@ function add() {
 // Add event listiner t add button
 
 addBtn.addEventListener("click", add);
+subtractBtn.addEventListener("click", substract);
+multiplyBtn.addEventListener("click", multiplay);
+divideBtn.addEventListener("click", divide);
