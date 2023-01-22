@@ -30,24 +30,34 @@ function writeToLog(
 }
 
 function calculator(operationName) {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-  let operationSympol;
-  if (operationName === "ADD") {
-    currentResult += enteredNumber;
-    operationSympol = "+";
-  } else if (operationName === "SUBTRACT") {
-    currentResult -= enteredNumber;
-    operationSympol = "-";
-  } else if (operationName === "MULTIPLY") {
-    currentResult *= enteredNumber;
-    operationSympol = "*";
-  } else if (operationName === "DIVIDE") {
-    currentResult /= enteredNumber;
-    operationSympol = "/";
+  if (
+    operationName === "ADD" ||
+    operationName === "SUBTRACT" ||
+    operationName === "MULTIPLY" ||
+    operationName === "DIVIDE"
+  ) {
+    const enteredNumber = getUserNumberInput();
+    const initialResult = currentResult;
+    let operationSympol;
+    if (operationName === "ADD") {
+      currentResult += enteredNumber;
+      operationSympol = "+";
+    } else if (operationName === "SUBTRACT") {
+      currentResult -= enteredNumber;
+      operationSympol = "-";
+    } else if (operationName === "MULTIPLY") {
+      currentResult *= enteredNumber;
+      operationSympol = "*";
+    } else if (operationName === "DIVIDE") {
+      currentResult /= enteredNumber;
+      operationSympol = "/";
+    }
+    console.log("What happening");
+    createAndWriteOutput(operationSympol, initialResult, enteredNumber);
+    writeToLog(operationName, initialResult, enteredNumber, currentResult);
+  } else {
+    createAndWriteOutput("?", "?", "?");
   }
-  createAndWriteOutput(operationSympol, initialResult, enteredNumber);
-  writeToLog(operationName, initialResult, enteredNumber, currentResult);
 }
 
 function add() {
@@ -63,7 +73,7 @@ function multiply() {
 }
 
 function divide() {
-  calculator("DIVIDE");
+  calculator("DIV");
 }
 
 addBtn.addEventListener("click", add);
