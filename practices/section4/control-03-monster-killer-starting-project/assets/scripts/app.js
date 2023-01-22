@@ -10,6 +10,12 @@ let initPlayerLife;
 
 adjustHealthBars(chosenMaxLife);
 
+function reset() {
+  currentPlayerHealth = chosenMaxLife;
+  currentMonsterHealth = chosenMaxLife;
+  resetGame(chosenMaxLife);
+}
+
 function roundEnd() {
   initPlayerLife = currentPlayerHealth;
   currentPlayerHealth -= dealPlayerDamage(ATTACK_MONSTER_AMOUNT);
@@ -28,10 +34,15 @@ function roundEnd() {
   ) {
     alert("You Have a Bouns Life>");
     bonusLife = false;
+    removeBonusLife();
     currentPlayerHealth = initPlayerLife;
     increasePlayerHealth(initPlayerLife);
   } else if (currentPlayerHealth <= 0 && currentMonsterHealth <= 0) {
     alert("There is a Draw Fight Again!");
+  }
+
+  if (currentPlayerHealth <= 0 || currentMonsterHealth <= 0) {
+    reset();
   }
 }
 
