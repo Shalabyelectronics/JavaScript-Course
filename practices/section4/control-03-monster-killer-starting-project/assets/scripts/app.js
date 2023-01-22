@@ -5,15 +5,31 @@ const HEAL_AMOUNT = 20;
 const chosenMaxLife = 100;
 let currentPlayerHealth = chosenMaxLife;
 let currentMonsterHealth = chosenMaxLife;
+let bonusLife = true;
+let initPlayerLife;
 
 adjustHealthBars(chosenMaxLife);
 
 function roundEnd() {
+  initPlayerLife = currentPlayerHealth;
   currentPlayerHealth -= dealPlayerDamage(ATTACK_MONSTER_AMOUNT);
   if (currentPlayerHealth > 0 && currentMonsterHealth <= 0) {
     alert("Player WON!");
-  } else if (currentMonsterHealth > 0 && currentPlayerHealth <= 0) {
+  } else if (
+    currentMonsterHealth > 0 &&
+    currentPlayerHealth <= 0 &&
+    !bonusLife
+  ) {
     alert("Monster WON!");
+  } else if (
+    currentMonsterHealth > 0 &&
+    currentPlayerHealth <= 0 &&
+    bonusLife
+  ) {
+    alert("You Have a Bouns Life>");
+    bonusLife = false;
+    currentPlayerHealth = initPlayerLife;
+    increasePlayerHealth(initPlayerLife);
   } else if (currentPlayerHealth <= 0 && currentMonsterHealth <= 0) {
     alert("There is a Draw Fight Again!");
   }
