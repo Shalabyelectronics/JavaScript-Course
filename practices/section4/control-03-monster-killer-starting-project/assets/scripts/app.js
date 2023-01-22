@@ -101,17 +101,11 @@ function roundEnd() {
 }
 
 function attackAmount(mode) {
-  let damageAmount;
-  let event;
-  if (mode === ATTACK_MODE) {
-    damageAmount = ATTACK_PLAYER_AMOUNT;
-    event = PLAYER_ATTACK_EVENT;
-  } else if (mode === STRONG_ATTACK_MODE) {
-    damageAmount = STRONG_ATTACK_AMOUNT;
-    event = PLAYER_STRONG_ATTACK_EVENT;
-  } else {
-    return;
-  }
+  let damageAmount =
+    mode === ATTACK_MODE ? ATTACK_PLAYER_AMOUNT : STRONG_ATTACK_AMOUNT;
+  let event =
+    mode === ATTACK_MODE ? PLAYER_ATTACK_EVENT : PLAYER_STRONG_ATTACK_EVENT;
+
   const monsterDamegedAmount = dealMonsterDamage(damageAmount);
   currentMonsterHealth -= monsterDamegedAmount;
   battelLogHistory(
