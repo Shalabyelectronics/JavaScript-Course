@@ -2,6 +2,8 @@ const ATTACK_PLAYER_AMOUNT = 10;
 const ATTACK_MONSTER_AMOUNT = 14;
 const STRONG_ATTACK_AMOUNT = 17;
 const HEAL_AMOUNT = 20;
+const ATTACK_MODE = "ATTACK";
+const STRONG_ATTACK_MODE = "STRONG_ATTACK";
 let chosenMaxLife = parseInt(
   prompt("Please chose a max life for a player and a Monster ?", "100")
 );
@@ -53,9 +55,9 @@ function roundEnd() {
 
 function attackAmount(mode) {
   let damageAmount;
-  if (mode === "ATTACK") {
+  if (mode === ATTACK_MODE) {
     damageAmount = ATTACK_PLAYER_AMOUNT;
-  } else if (mode === "STRONG_ATTACK") {
+  } else if (mode === STRONG_ATTACK_MODE) {
     damageAmount = STRONG_ATTACK_AMOUNT;
   } else {
     return;
@@ -65,11 +67,11 @@ function attackAmount(mode) {
 }
 
 function attackHandler() {
-  attackAmount("ATTACK");
+  attackAmount(ATTACK_MODE);
 }
 
 function strongAttackHandler() {
-  attackAmount("STRONG_ATTACK");
+  attackAmount(STRONG_ATTACK_MODE);
 }
 
 function healHandler() {
