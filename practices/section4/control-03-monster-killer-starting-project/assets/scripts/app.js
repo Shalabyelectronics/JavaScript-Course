@@ -156,8 +156,16 @@ function logHandler() {
   // }
   // ------------------------
   // for of working with Arraies
+  let i = 1;
+  let x = 1;
   for (const logEntry of totalLogList) {
-    console.log(logEntry);
+    console.log(`# ${i}`);
+    for (const key in logEntry) {
+      console.log(`${x} - ${key} => ${logEntry[key]}`);
+      x++;
+    }
+    x = 1;
+    i++;
   }
 }
 
