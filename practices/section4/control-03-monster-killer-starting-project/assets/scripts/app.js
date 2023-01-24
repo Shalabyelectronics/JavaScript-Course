@@ -150,8 +150,14 @@ function healHandler() {
 }
 
 function logHandler() {
-  for (let i = 0; i < totalLogList.length; i++) {
-    console.log(totalLogList[i]);
+  // Classic for loop
+  // for (let i = 0; i < totalLogList.length; i++) {
+  //   console.log(totalLogList[i]);
+  // }
+  // ------------------------
+  // for of working with Arraies
+  for (const logEntry of totalLogList) {
+    console.log(logEntry);
   }
 }
 
