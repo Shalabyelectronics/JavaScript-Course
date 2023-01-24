@@ -10,12 +10,16 @@ const MONSTER_ATTACK_EVENT = "MONSTER_ATTACK";
 const PLAYER_HEAL_EVENT = "PLAYER_HEAL";
 const GAME_OVER = "GAME_OVER";
 
-let chosenMaxLife = parseInt(
-  prompt("Please chose a max life for a player and a Monster ?", "100")
-);
-if (chosenMaxLife <= 0 || isNaN(chosenMaxLife)) {
-  chosenMaxLife = 100;
+function getMaxLife() {
+  let chosenMaxLife = parseInt(
+    prompt("Please chose a max life for a player and a Monster ?", "100")
+  );
+  if (chosenMaxLife <= 0 || isNaN(chosenMaxLife)) {
+    throw "Not Valid number!!!";
+  }
+  return chosenMaxLife;
 }
+const chosenMaxLife = getMaxLife();
 let currentPlayerHealth = chosenMaxLife;
 let currentMonsterHealth = chosenMaxLife;
 let bonusLife = true;
