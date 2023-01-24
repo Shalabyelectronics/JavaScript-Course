@@ -19,7 +19,15 @@ function getMaxLife() {
   }
   return chosenMaxLife;
 }
-const chosenMaxLife = getMaxLife();
+let chosenMaxLife;
+try {
+  chosenMaxLife = getMaxLife();
+} catch (error) {
+  console.log(error);
+  chosenMaxLife = 100;
+} finally {
+  console.log("Continue playing>");
+}
 let currentPlayerHealth = chosenMaxLife;
 let currentMonsterHealth = chosenMaxLife;
 let bonusLife = true;
