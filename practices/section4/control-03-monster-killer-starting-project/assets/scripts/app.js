@@ -150,7 +150,9 @@ function healHandler() {
 }
 
 function logHandler() {
-  console.log(totalLogList);
+  for (let i = 0; i < totalLogList.length; i++) {
+    console.log(totalLogList[i]);
+  }
 }
 
 attackBtn.addEventListener("click", attackHandler);
