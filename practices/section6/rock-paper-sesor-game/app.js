@@ -6,6 +6,9 @@ function startGame() {
   console.log("Game starting .....");
 }
 
+// Function is an Object and by using console.dir you check what stored inside of it.
+// console.dir(startGame);
+
 startGameBtn.addEventListener("click", startGame);
 
 /*
