@@ -6,12 +6,15 @@ function startGame() {
   console.log("Game starting .....");
 }
 
-// Function is an Object and by using console.dir you check what stored inside of it.
-// console.dir(startGame);
-
 startGameBtn.addEventListener("click", startGame);
 
 /*
+// 
+
+**The different between statment and expression that statment need to state what you are going to do on other hand expression is when we assigned to avalue or assign to statment that yield us a value
+
+** Function is an Object and by using console.dir you check what stored inside of it.
+ console.dir(startGame);
 
 
 // Method is a function withen an Object as below
