@@ -9,17 +9,15 @@ function getUserInput() {
     3: "scissors",
     4: "Random",
   };
-  const userChoose = parseInt(
-    prompt(
-      "Please Choose from 1 to 4 Only\n(1) for rock,\n(2) for paper,\n(3) for scissors or\n(4) for random."
-    )
+  const userChoose = prompt(
+    "Please Choose from 1 to 4 Only\n(1) for rock,\n(2) for paper,\n(3) for scissors or\n(4) for random."
   );
   console.log(userChoose, "Print user choice");
-  const result = availableChoices[userChoose] ? userChoose : 10;
+  const result = availableChoices[userChoose] ? userChoose : userChoose;
   console.log(result, "print result");
   if (result < 4) {
     console.log(`Your choice is ${availableChoices[userChoose]}`);
-  } else if (result === 4) {
+  } else if (result == 4) {
     let randomNum = Math.round(Math.random() * 10);
     while (true) {
       if (randomNum > 0 && randomNum < 4) {
@@ -33,7 +31,8 @@ function getUserInput() {
       randomNum = Math.round(Math.random() * 10);
     }
   } else {
-    console.log("Please Choose Wisly!!!");
+    alert(`You can't choose (${userChoose}) : Please Choose Wisly!!!`);
+    getUserInput();
   }
 }
 
