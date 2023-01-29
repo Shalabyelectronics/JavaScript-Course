@@ -9,7 +9,7 @@ const availableChoices = {
 let isStarting = false;
 // Because of Hoisting feature we can call function befor its declared
 // startGame();
-function getRandomChoice() {
+const getRandomChoice = () => {
   let randomNum = Math.round(Math.random() * 10);
   while (true) {
     if (randomNum > 0 && randomNum < 4) {
@@ -18,8 +18,8 @@ function getRandomChoice() {
     }
     randomNum = Math.round(Math.random() * 10);
   }
-}
-function getUserInput() {
+};
+const getUserInput = () => {
   const userChoose = prompt(
     "Please Choose from 1 to 4 Only\n(1) for rock,\n(2) for paper,\n(3) for scissors or\n(4) for random."
   );
@@ -35,15 +35,15 @@ function getUserInput() {
     alert(`You can't choose (${userChoose}) : Please Choose Wisly!!!`);
     getUserInput();
   }
-}
+};
 
-function getComputerChoice() {
+const getComputerChoice = () => {
   const computerChoice = getRandomChoice();
   // console.log(`Computer choice is ${computerChoice}`);
   return computerChoice;
-}
+};
 
-function checkWinner(user, computer) {
+const checkWinner = (user, computer) => {
   if (
     (user === "paper" && computer === "rock") ||
     (computer === "paper" && user === "rock")
@@ -70,22 +70,35 @@ function checkWinner(user, computer) {
         `Computer Won: because Computer choose ${computer} and User choose ${user}`
       );
     }
+  } else if (
+    (user === "rock" && computer === "scissors") ||
+    (computer === "rock" && user === "scissors")
+  ) {
+    if (user === "rock" && computer === "scissors") {
+      alert(
+        `User Won: because User choose ${user} and Computer choose ${computer}`
+      );
+    } else {
+      alert(
+        `Computer Won: because Computer choose ${computer} and User choose ${user}`
+      );
+    }
   } else {
     alert(`It is Draw!!!`);
   }
   isStarting = false;
-}
+};
 
-function startGame() {
+const startGame = () => {
   isStarting = true;
   console.log("Game starting .....");
   const userChoice = getUserInput();
   const computerChoice = getComputerChoice();
   console.log(`User Input ${userChoice}\nComputer Choice ${computerChoice}`);
   checkWinner(userChoice, computerChoice);
-}
+};
 
-startGameBtn.addEventListener("click", function () {
+startGameBtn.addEventListener("click", () => {
   if (!isStarting) {
     startGame();
   } else {
