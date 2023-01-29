@@ -185,11 +185,12 @@ var testEc5 = function () {
 
 const testEc6 = (...numbers) => {
   // Note you can add any parameter before rest parameter but not after it
+  const validateNum = (num) => (isNaN(num) ? 0 : parseInt(num));
   let total = 0;
   for (number of numbers) {
-    total += number;
+    total += validateNum(number);
   }
   return total;
 };
 
-console.log(testEc6(1, 2, 3, 4, 5, 65, 6, 7, 7));
+console.log(testEc6(1, 2, 3, "4rr", 5, 65, 6, 7, 7));
