@@ -167,3 +167,29 @@ yourName.greatMe("samer");
 
 
 */
+
+// test rest parameters
+// EC5 way
+
+var testEc5 = function () {
+  var total = 0;
+  for (number of arguments) {
+    total += number;
+  }
+  return total;
+};
+
+// console.log(testEc5(1, 2, 3, 4, 5, 65, 6, 7, 7));
+
+// But better use EC6 rest parameter
+
+const testEc6 = (...numbers) => {
+  // Note you can add any parameter before rest parameter but not after it
+  let total = 0;
+  for (number of numbers) {
+    total += number;
+  }
+  return total;
+};
+
+console.log(testEc6(1, 2, 3, 4, 5, 65, 6, 7, 7));
