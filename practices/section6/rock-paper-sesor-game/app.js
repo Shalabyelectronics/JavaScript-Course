@@ -6,7 +6,7 @@ const availableChoices = {
   3: "scissors",
   4: "Random",
 };
-
+let isStarting = false;
 // Because of Hoisting feature we can call function befor its declared
 // startGame();
 function getRandomChoice() {
@@ -43,7 +43,38 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-let isStarting = false;
+function checkWinner(user, computer) {
+  if (
+    (user === "paper" && computer === "rock") ||
+    (computer === "paper" && user === "rock")
+  ) {
+    if (user === "paper" && computer === "rock") {
+      alert(
+        `User Won: because User choose ${user} and Computer choose ${computer}`
+      );
+    } else {
+      alert(
+        `Computer Won: because Computer choose ${computer} and User choose ${user}`
+      );
+    }
+  } else if (
+    (user === "paper" && computer === "scissors") ||
+    (computer === "paper" && user === "scissors")
+  ) {
+    if (user === "scissors" && computer === "paper") {
+      alert(
+        `User Won: because User choose ${user} and Computer choose ${computer}`
+      );
+    } else {
+      alert(
+        `Computer Won: because Computer choose ${computer} and User choose ${user}`
+      );
+    }
+  } else {
+    alert(`It is Draw!!!`);
+  }
+  isStarting = false;
+}
 
 function startGame() {
   isStarting = true;
@@ -51,6 +82,7 @@ function startGame() {
   const userChoice = getUserInput();
   const computerChoice = getComputerChoice();
   console.log(`User Input ${userChoice}\nComputer Choice ${computerChoice}`);
+  checkWinner(userChoice, computerChoice);
 }
 
 startGameBtn.addEventListener("click", function () {
