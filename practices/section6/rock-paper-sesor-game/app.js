@@ -17,6 +17,7 @@ function getUserInput() {
   console.log(result, "print result");
   if (result < 4) {
     console.log(`Your choice is ${availableChoices[userChoose]}`);
+    return availableChoices[userChoose];
   } else if (result == 4) {
     let randomNum = Math.round(Math.random() * 10);
     while (true) {
@@ -25,8 +26,7 @@ function getUserInput() {
           `Our Randomly choice for you is ${availableChoices[randomNum]}`,
           randomNum
         );
-
-        break;
+        return availableChoices[randomNum];
       }
       randomNum = Math.round(Math.random() * 10);
     }
@@ -36,12 +36,21 @@ function getUserInput() {
   }
 }
 
+let isStarting = false;
+
 function startGame() {
+  isStarting = true;
   console.log("Game starting .....");
-  getUserInput();
+  return getUserInput();
 }
 
-startGameBtn.addEventListener("click", startGame);
+startGameBtn.addEventListener("click", function () {
+  if (!isStarting) {
+    startGame();
+  } else {
+    alert("Game Already started!!!");
+  }
+});
 
 /*
 // 
