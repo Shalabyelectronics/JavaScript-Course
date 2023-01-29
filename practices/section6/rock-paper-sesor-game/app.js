@@ -1,39 +1,46 @@
 const startGameBtn = document.getElementById("start-game-btn");
+
+const availableChoices = {
+  1: "rock",
+  2: "paper",
+  3: "scissors",
+  4: "Random",
+};
+
 // Because of Hoisting feature we can call function befor its declared
 // startGame();
-
+function getRandomChoice() {
+  let randomNum = Math.round(Math.random() * 10);
+  while (true) {
+    if (randomNum > 0 && randomNum < 4) {
+      // console.log(`Our Randomly choice for you is ${availableChoices[randomNum]}`);
+      return availableChoices[randomNum];
+    }
+    randomNum = Math.round(Math.random() * 10);
+  }
+}
 function getUserInput() {
-  const availableChoices = {
-    1: "rock",
-    2: "paper",
-    3: "scissors",
-    4: "Random",
-  };
   const userChoose = prompt(
     "Please Choose from 1 to 4 Only\n(1) for rock,\n(2) for paper,\n(3) for scissors or\n(4) for random."
   );
-  console.log(userChoose, "Print user choice");
+  // console.log(userChoose, "Print user choice");
   const result = availableChoices[userChoose] ? userChoose : userChoose;
-  console.log(result, "print result");
+  // console.log(result, "print result");
   if (result < 4) {
-    console.log(`Your choice is ${availableChoices[userChoose]}`);
+    // console.log(`Your choice is ${availableChoices[userChoose]}`);
     return availableChoices[userChoose];
   } else if (result == 4) {
-    let randomNum = Math.round(Math.random() * 10);
-    while (true) {
-      if (randomNum > 0 && randomNum < 4) {
-        console.log(
-          `Our Randomly choice for you is ${availableChoices[randomNum]}`,
-          randomNum
-        );
-        return availableChoices[randomNum];
-      }
-      randomNum = Math.round(Math.random() * 10);
-    }
+    return getRandomChoice();
   } else {
     alert(`You can't choose (${userChoose}) : Please Choose Wisly!!!`);
     getUserInput();
   }
+}
+
+function getComputerChoice() {
+  const computerChoice = getRandomChoice();
+  // console.log(`Computer choice is ${computerChoice}`);
+  return computerChoice;
 }
 
 let isStarting = false;
@@ -41,7 +48,9 @@ let isStarting = false;
 function startGame() {
   isStarting = true;
   console.log("Game starting .....");
-  return getUserInput();
+  const userChoice = getUserInput();
+  const computerChoice = getComputerChoice();
+  console.log(`User Input ${userChoice}\nComputer Choice ${computerChoice}`);
 }
 
 startGameBtn.addEventListener("click", function () {
@@ -51,6 +60,19 @@ startGameBtn.addEventListener("click", function () {
     alert("Game Already started!!!");
   }
 });
+
+function test() {
+  const testList = ["paper", "rock", "scissors"];
+  for (let i = 0; i < 10000; i++) {
+    let isUndefined = getRandomChoice();
+    if (!isUndefined) {
+      console.log(`${isUndefined}`);
+      break;
+    } else if (testList.includes(isUndefined)) {
+      console.log("All fine");
+    }
+  }
+}
 
 /*
 // 
