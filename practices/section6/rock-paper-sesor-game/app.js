@@ -1,12 +1,14 @@
 const startGameBtn = document.getElementById("start-game-btn");
 
 const availableChoices = {
+  choices: ["rock", "paper", "scissors"],
   1: "rock",
   2: "paper",
   3: "scissors",
   4: "Random",
 };
 let isStarting = false;
+let WINNER;
 // Because of Hoisting feature we can call function befor its declared
 // startGame();
 const getRandomChoice = () => {
@@ -20,11 +22,15 @@ const getRandomChoice = () => {
   }
 };
 const getUserInput = () => {
-  const userChoose = prompt(
-    "Please Choose from 1 to 4 Only\n(1) for rock,\n(2) for paper,\n(3) for scissors or\n(4) for random."
+  const userChoose = parseInt(
+    prompt(
+      "Please Choose from 1 to 4 Only\n(1) for rock,\n(2) for paper,\n(3) for scissors or\n(4) for random."
+    )
   );
-  // console.log(userChoose, "Print user choice");
-  const result = availableChoices[userChoose] ? userChoose : userChoose;
+  console.log(userChoose.length, "Print user choice");
+  const result = availableChoices.choices.includes(availableChoices[userChoose])
+    ? userChoose
+    : 4;
   // console.log(result, "print result");
   if (result < 4) {
     // console.log(`Your choice is ${availableChoices[userChoose]}`);
@@ -43,51 +49,58 @@ const getComputerChoice = () => {
   return computerChoice;
 };
 
-const checkWinner = (user, computer) => {
-  if (
-    (user === "paper" && computer === "rock") ||
-    (computer === "paper" && user === "rock")
-  ) {
-    if (user === "paper" && computer === "rock") {
-      alert(
-        `User Won: because User choose ${user} and Computer choose ${computer}`
-      );
-    } else {
-      alert(
-        `Computer Won: because Computer choose ${computer} and User choose ${user}`
-      );
-    }
-  } else if (
-    (user === "paper" && computer === "scissors") ||
-    (computer === "paper" && user === "scissors")
-  ) {
-    if (user === "scissors" && computer === "paper") {
-      alert(
-        `User Won: because User choose ${user} and Computer choose ${computer}`
-      );
-    } else {
-      alert(
-        `Computer Won: because Computer choose ${computer} and User choose ${user}`
-      );
-    }
-  } else if (
-    (user === "rock" && computer === "scissors") ||
-    (computer === "rock" && user === "scissors")
-  ) {
-    if (user === "rock" && computer === "scissors") {
-      alert(
-        `User Won: because User choose ${user} and Computer choose ${computer}`
-      );
-    } else {
-      alert(
-        `Computer Won: because Computer choose ${computer} and User choose ${user}`
-      );
-    }
-  } else {
-    alert(`It is Draw!!!`);
-  }
-  isStarting = false;
-};
+const checkWinner = (user, computer) =>
+  (user === "paper" && computer === "rock") ||
+  (user === "paper" && computer === "scissors") ||
+  (user === "rock" && computer === "scissors")
+    ? "user"
+    : user === computer
+    ? "draw"
+    : "computer";
+
+// Saved a lot of code with above logic
+// if (
+//   (user === "paper" && computer === "rock") ||
+//   (computer === "paper" && user === "rock")
+// ) {
+//   if (user === "paper" && computer === "rock") {
+//     alert(
+//       `User Won: because User choose ${user} and Computer choose ${computer}`
+//     );
+//   } else {
+//     alert(
+//       `Computer Won: because Computer choose ${computer} and User choose ${user}`
+//     );
+//   }
+// } else if (
+//   (user === "paper" && computer === "scissors") ||
+//   (computer === "paper" && user === "scissors")
+// ) {
+//   if (user === "scissors" && computer === "paper") {
+//     alert(
+//       `User Won: because User choose ${user} and Computer choose ${computer}`
+//     );
+//   } else {
+//     alert(
+//       `Computer Won: because Computer choose ${computer} and User choose ${user}`
+//     );
+//   }
+// } else if (
+//   (user === "rock" && computer === "scissors") ||
+//   (computer === "rock" && user === "scissors")
+// ) {
+//   if (user === "rock" && computer === "scissors") {
+//     alert(
+//       `User Won: because User choose ${user} and Computer choose ${computer}`
+//     );
+//   } else {
+//     alert(
+//       `Computer Won: because Computer choose ${computer} and User choose ${user}`
+//     );
+//   }
+// } else {
+//   alert(`It is Draw!!!`);
+// }
 
 const startGame = () => {
   isStarting = true;
@@ -95,7 +108,19 @@ const startGame = () => {
   const userChoice = getUserInput();
   const computerChoice = getComputerChoice();
   console.log(`User Input ${userChoice}\nComputer Choice ${computerChoice}`);
-  checkWinner(userChoice, computerChoice);
+  WINNER = checkWinner(userChoice, computerChoice);
+  if (WINNER === "user") {
+    alert(
+      `User Won: because user choose ${userChoice} and computer choose ${computerChoice}`
+    );
+  } else if (WINNER === "computer") {
+    alert(
+      `Computer Won: because computer choose ${computerChoice} and user choose ${userChoice}`
+    );
+  } else {
+    alert(`Draw: because computer and user choose the same ${computerChoice}.`);
+  }
+  isStarting = false;
 };
 
 startGameBtn.addEventListener("click", () => {
