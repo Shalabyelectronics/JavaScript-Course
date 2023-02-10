@@ -7,7 +7,9 @@ const searchMovieBtn = document.getElementById("search-btn");
 const moviesCardList = document.getElementById("movie-list");
 const addMovieInputs = document.querySelectorAll("#user-input input");
 
-const moviesObjectsArr = [];
+const getMovieData = () => JSON.parse(localStorage.getItem("movieArr"));
+
+const moviesObjectsArr = !!getMovieData() ? getMovieData() : [];
 
 const clearInputs = (inputSectionArr) => {
   for (const input of inputSectionArr) {
@@ -20,6 +22,7 @@ const creatMovieObj = () => {
     alert("Please add a movie!!");
     return;
   }
+  moviesCardList.classList.remove("visible");
   const movieObj = {};
   if (movieTitle.value && extraInfo.value && extraInfoValue.value) {
     movieObj.title = movieTitle.value;
@@ -36,8 +39,6 @@ const saveToLocalStorage = () => {
   if (!moviesObjectsArr.length) return;
   localStorage.setItem("movieArr", JSON.stringify(moviesObjectsArr));
 };
-
-const getMovieData = () => JSON.parse(localStorage.getItem("movieArr"));
 
 const creatMovieCard = (
   title,
