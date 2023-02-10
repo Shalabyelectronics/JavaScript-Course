@@ -18,17 +18,21 @@ const clearInputs = (inputSectionArr) => {
 };
 
 const creatMovieObj = () => {
-  if (!movieTitle.value) {
+  const movieTitleValue = movieTitle.value.trim();
+  const extrInfoKey = extraInfo.value.trim();
+  const extrInfoValue = extraInfoValue.value.trim();
+  if (!movieTitleValue) {
     alert("Please add a movie!!");
     return;
   }
   moviesCardList.classList.remove("visible");
   const movieObj = {};
-  if (movieTitle.value && extraInfo.value && extraInfoValue.value) {
-    movieObj.title = movieTitle.value;
-    movieObj[extraInfo.value] = extraInfoValue.value;
+
+  if (movieTitleValue && extrInfoKey && extrInfoValue) {
+    movieObj.title = movieTitleValue;
+    movieObj[extrInfoKey] = extrInfoValue;
   } else {
-    movieObj.title = movieTitle.value;
+    movieObj.title = movieTitleValue;
   }
   moviesObjectsArr.push(movieObj);
   saveToLocalStorage();
