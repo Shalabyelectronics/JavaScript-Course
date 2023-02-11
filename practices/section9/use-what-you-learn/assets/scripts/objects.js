@@ -92,36 +92,41 @@ const clearFilterList = () => {
 const filterByTitle = () => {
   clearFilterList();
   const movieQuery = filterValue.value;
-  let doHaveMovie = false;
-  let doHaveExtra = false;
-  let movieTitle = movieQuery;
-  let extraKey = "";
-  let extraValue = "";
+  const filteredMovie = new Map();
   const moviesData = getMovieData();
   for (const movie of moviesData) {
+    filteredMovie.set("doHaveMovie", false);
+    filteredMovie.set("doHaveExtra", false);
+    filteredMovie.set("movieTitle", null);
+    filteredMovie.set("extraKey", null);
+    filteredMovie.set("extraValue", null);
     if (movie.title === movieQuery) {
-      doHaveMovie = true;
-      movieTitle = movie.title;
-      extraKey = "";
-      extraValue = "";
+      filteredMovie.set("movieTitle", movieQuery);
+      filteredMovie.set("doHaveMovie", true);
       for (const objKey in movie) {
-        if (objKey !== "title" && objKey) {
-          doHaveExtra = true;
-          extraKey = objKey;
-          extraValue = movie[objKey];
+        if (objKey !== "title") {
+          filteredMovie.set("doHaveExtra", true);
+          filteredMovie.set("extraKey", objKey);
+          filteredMovie.set("extraValue", movie[objKey]);
         }
       }
     }
-  }
+    let copyFilteredMovie = new Map(
+      JSON.parse(JSON.stringify(Array.from(filteredMovie)))
+    );
+    if (copyFilteredMovie.get("movieTitle")) {
+      creatMovieCard(
+        copyFilteredMovie.get("movieTitle"),
+        copyFilteredMovie.get("extraKey"),
+        copyFilteredMovie.get("extraValue"),
+        copyFilteredMovie.get("doHaveExtra"),
+        copyFilteredMovie.get("doHaveMovie")
+      );
+    }
 
-  console.log(
-    movieTitle.length,
-    extraKey.length,
-    extraValue.length,
-    doHaveExtra,
-    doHaveMovie
-  );
-  creatMovieCard(movieTitle, extraKey, extraValue, doHaveExtra, doHaveMovie);
+    filteredMovie.clear();
+  }
+  creatMovieCard(movieQuery);
 };
 
 addMovieBtn.addEventListener("click", creatMovieObj);
