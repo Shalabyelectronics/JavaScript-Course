@@ -12,8 +12,8 @@ class Product {
   }
 }
 
-const productList = {
-  myProduct: [
+class ProductList {
+  myProduct = [
     new Product(
       "Samsung smart tv",
       "https://images.samsung.com/is/image/samsung/p5/sa/tvs/smart-tv/highlights/smart-tv-f02-pc001.jpg?$ORIGIN_JPG$",
@@ -27,31 +27,37 @@ const productList = {
       "Start to live an Adventure"
     ),
     new Product(),
-  ],
+  ];
+}
+
+class ProductItem {
+  constructor(product) {
+    this.product = product;
+  }
   render() {
     const productBoard = document.getElementById("app");
     const productUl = document.createElement("ul");
     productUl.className = "product-list";
     productBoard.append(productUl);
-
-    for (const product of this.myProduct) {
+    for (const prod of this.product) {
       const createNewLi = document.createElement("li");
       createNewLi.className = "product-item";
       createNewLi.innerHTML = `
       <div>
-      <img src="${product.imageUrl}" alt="${product.title}"/>
-      
+      <img src="${prod.imageUrl}" alt="${prod.title}"/>
+
       <div class="product-item__content">
-      <h2>${product.title}</h2>
-      <h3>\$${product.price}</h3>
-      <p>${product.description}</p>
+      <h2>${prod.title}</h2>
+      <h3>\$${prod.price}</h3>
+      <p>${prod.description}</p>
       <button>Add to cart</button>
       </div>
       </div>
       `;
       productUl.append(createNewLi);
     }
-  },
-};
+  }
+}
 
-productList.render();
+const test = new ProductItem(new ProductList().myProduct);
+test.render();
