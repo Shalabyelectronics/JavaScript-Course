@@ -12,13 +12,44 @@ class Product {
     this.description = description;
   }
 }
+
+class ElementAttribute {
+  constructor(attrName, attrValue) {
+    this.name = attrName;
+    this.value = attrValue;
+  }
+}
+
+class Componant {
+  constructor(renderHookId) {
+    this.hookId = renderHookId;
+  }
+  creatRootElement(tag, cssClass, attributes) {
+    const rootElement = document.createElement(tag);
+    if (cssClass) {
+      rootElement.className = cssClass;
+    }
+    if (attributes && attributes.length > 0) {
+      for (const attr of attributes) {
+        rootElement.setAttribute(attr.name, attr.value);
+      }
+    }
+    document.getElementById(this.hookId).append(rootElement);
+    return rootElement;
+  }
+}
+
 // ShoppingCart class will create an Object that hold two methods and one field
-class ShoppingCart {
+class ShoppingCart extends Componant {
+  constructor(hookId) {
+    super(hookId);
+  }
   // items field that will holds all tems you added to cart
   items = [];
 
-  set addItem(item) {
-    this.items.push(item);
+  set cartItems(value) {
+    this.items = value;
+    this.totalOutput.innerHTML = `<h2>Total: \$${this.getTotal}</h2>`;
   }
 
   get getTotal() {
@@ -29,9 +60,9 @@ class ShoppingCart {
   }
 
   addProduct(product) {
-    this.addItem = product;
-    console.log(this.getTotal);
-    this.totalOutput.innerHTML = `<h2>Total: \$${this.getTotal}</h2>`;
+    const updateItems = [...this.items];
+    updateItems.push(product);
+    this.cartItems = updateItems;
   }
   // update Total and updateTotalUi this my try and I didn't use it for this project
   updateTotal() {
@@ -43,20 +74,19 @@ class ShoppingCart {
   }
   // render method will creat an shopCart Elementand return it to add it to app later.
   render() {
-    const shopCartEl = document.createElement("section");
-    shopCartEl.innerHTML = `
+    const cartEl = this.creatRootElement("section", "cart");
+    cartEl.innerHTML = `
     <h2>Total:\$${0}</h2>
     <button>Order Now!</button>
     `;
-    shopCartEl.className = "cart";
-    this.totalOutput = shopCartEl.querySelector("h2");
-    return shopCartEl;
+    this.totalOutput = cartEl.querySelector("h2");
   }
 }
 
 // ProductItem will get an product object from ProductList object and we will use it to render our products and add event listener for each with add to cart method that will use helper class App
-class ProductItem {
-  constructor(product) {
+class ProductItem extends Componant {
+  constructor(product, hookId) {
+    super(hookId);
     this.product = product;
   }
   addToCart() {
@@ -69,8 +99,7 @@ class ProductItem {
     // toCartClass.updateTotalUi();
   }
   render() {
-    const createNewLi = document.createElement("li");
-    createNewLi.className = "product-item";
+    const createNewLi = this.creatRootElement("li", "product-item");
     createNewLi.innerHTML = `
       <div>
       <img src="${this.product.imageUrl}" alt="${this.product.title}"/>
@@ -85,7 +114,6 @@ class ProductItem {
       `;
     const addBtn = createNewLi.querySelector("button");
     addBtn.addEventListener("click", this.addToCart.bind(this));
-    return createNewLi;
   }
 }
 
@@ -110,7 +138,7 @@ class ProductList {
     productUl.className = "product-list";
 
     for (const product of this.products) {
-      const itemList = new ProductItem(product);
+      const itemList = new ProductItem(product, "app");
       const itemObj = itemList.render();
       productUl.append(itemObj);
     }
@@ -120,14 +148,10 @@ class ProductList {
 
 class Shop {
   render() {
-    const renderHook = document.getElementById("app");
-    this.cart = new ShoppingCart();
-    const cartEl = this.cart.render();
+    this.cart = new ShoppingCart("app");
+    this.cart.render();
     const productList = new ProductList();
-    const productEl = productList.render();
-
-    renderHook.append(cartEl);
-    renderHook.append(productEl);
+    productList.render();
   }
 }
 
