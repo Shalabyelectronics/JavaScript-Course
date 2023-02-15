@@ -21,23 +21,11 @@ class ElementAttribute {
 }
 
 class Componant {
-  products = [
-    new Product(
-      "Samsung smart tv",
-      "https://images.samsung.com/is/image/samsung/p5/sa/tvs/smart-tv/highlights/smart-tv-f02-pc001.jpg?$ORIGIN_JPG$",
-      "500",
-      "A nice tv to have"
-    ),
-    new Product(
-      "Platstation 5",
-      "https://www.alhub.me/wp-content/uploads/2022/09/ps5-1-1591910417-1.png",
-      "300",
-      "Start to live an Adventure"
-    ),
-  ];
-  constructor(renderHookId) {
+  constructor(renderHookId, autoRender = true) {
     this.hookId = renderHookId;
-    this.render();
+    if (autoRender) {
+      this.render();
+    }
   }
   render() {}
   creatRootElement(tag, cssClass, attributes) {
@@ -104,8 +92,9 @@ class ShoppingCart extends Componant {
 // ProductItem will get an product object from ProductList object and we will use it to render our products and add event listener for each with add to cart method that will use helper class App
 class ProductItem extends Componant {
   constructor(product, hookId) {
-    super(hookId);
+    super(hookId, false);
     this.product = product;
+    this.render();
   }
   addToCart() {
     // Helper class App have a static method that point to shopping cart addProduct method.
@@ -136,21 +125,43 @@ class ProductItem extends Componant {
 }
 
 class ProductList extends Componant {
-  get myProducts() {
-    return this.products;
-  }
-
   constructor(renderHookId) {
     super(renderHookId);
+    this.fetchProductData();
+  }
+
+  fetchProductData() {
+    this.products = [
+      new Product(
+        "Samsung smart tv",
+        "https://images.samsung.com/is/image/samsung/p5/sa/tvs/smart-tv/highlights/smart-tv-f02-pc001.jpg?$ORIGIN_JPG$",
+        "500",
+        "A nice tv to have"
+      ),
+      new Product(
+        "Platstation 5",
+        "https://www.alhub.me/wp-content/uploads/2022/09/ps5-1-1591910417-1.png",
+        "300",
+        "Start to live an Adventure"
+      ),
+    ];
+    this.renderProduct();
+  }
+
+  renderProduct() {
+    for (const product of this.products) {
+      new ProductItem(product, "product-list");
+    }
+  }
+
+  get myProducts() {
+    return this.products;
   }
 
   render() {
     this.creatRootElement("ul", "product-list", [
       new ElementAttribute("id", "product-list"),
     ]);
-    for (const product of this.products) {
-      new ProductItem(product, "product-list");
-    }
   }
 }
 
