@@ -16,9 +16,22 @@ class Product {
 class ShoppingCart {
   // items field that will holds all tems you added to cart
   items = [];
+
+  set addItem(item) {
+    this.items.push(item);
+  }
+
+  get getTotal() {
+    return this.items.reduce(
+      (prevoiseValue, currentValue) => prevoiseValue + +currentValue.price,
+      0
+    );
+  }
+
   addProduct(product) {
-    this.items.push(product);
-    this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`;
+    this.addItem = product;
+    console.log(this.getTotal);
+    this.totalOutput.innerHTML = `<h2>Total: \$${this.getTotal}</h2>`;
   }
   // update Total and updateTotalUi this my try and I didn't use it for this project
   updateTotal() {
