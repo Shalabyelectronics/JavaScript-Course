@@ -19,6 +19,9 @@ class ProductItem {
   addToCart() {
     console.log("Adding product to cart...");
     console.log(this.product);
+    const toCartClass = new ShopCart(this.product);
+    toCartClass.updateTotal();
+    toCartClass.updateTotalUi();
   }
   render() {
     const createNewLi = document.createElement("li");
@@ -38,6 +41,43 @@ class ProductItem {
     const addBtn = createNewLi.querySelector("button");
     addBtn.addEventListener("click", this.addToCart.bind(this));
     return createNewLi;
+  }
+}
+
+class ShopCart {
+  constructor(product) {
+    this.product = product;
+  }
+  allProduct = [];
+  addProducts(newProduct) {
+    if (this.allProduct) {
+      for (const product of this.allProduct) {
+        if (product.title in newProduct) {
+          continue;
+        }
+        this.allProduct.push(newProduct);
+      }
+    }
+    return this.allProduct;
+  }
+  updateTotal() {
+    // const newTotal = document.querySelector("span");
+    // const totalPrice = this.currentPrice + this.product.price;
+    // newTotal.innerText = totalPrice;
+    this.currentPrice = document.querySelector("span");
+    this.totalPrice = +this.currentPrice.innerText + +this.product.price;
+  }
+  updateTotalUi() {
+    document.querySelector("span").innerText = this.totalPrice;
+  }
+  render() {
+    const shopCartEl = document.createElement("section");
+    shopCartEl.innerHTML = `
+    <h2>Total:\$<span>${0}</span></h2>
+    <button>Order Now!</button>
+    `;
+    shopCartEl.className = "cart";
+    return shopCartEl;
   }
 }
 
@@ -72,5 +112,14 @@ class ProductList {
   }
 }
 
-const testNew = new ProductList();
-testNew.render();
+class Shop {
+  render() {
+    const shopApp = document.getElementById("app");
+    const shopCart = new ShopCart();
+    shopApp.append(shopCart.render());
+    const myProducts = new ProductList();
+    myProducts.render();
+  }
+}
+
+new Shop().render();
