@@ -1,3 +1,4 @@
+// Product class will creat an object that hold all product info (title,imageUrl,price,description)
 class Product {
   constructor(
     title = "default",
@@ -11,14 +12,15 @@ class Product {
     this.description = description;
   }
 }
-
-class ShopCart {
+// ShoppingCart class will create an Object that hold two methods and one field
+class ShoppingCart {
+  // items field that will holds all tems you added to cart
   items = [];
   addProduct(product) {
     this.items.push(product);
     this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`;
   }
-
+  // update Total and updateTotalUi this my try and I didn't use it for this project
   updateTotal() {
     this.currentPrice = document.querySelector("span");
     this.totalPrice = +this.currentPrice.innerText + +this.product.price;
@@ -26,6 +28,7 @@ class ShopCart {
   updateTotalUi() {
     document.querySelector("span").innerText = this.totalPrice;
   }
+  // render method will creat an shopCart Elementand return it to add it to app later.
   render() {
     const shopCartEl = document.createElement("section");
     shopCartEl.innerHTML = `
@@ -38,11 +41,13 @@ class ShopCart {
   }
 }
 
+// ProductItem will get an product object from ProductList object and we will use it to render our products and add event listener for each with add to cart method that will use helper class App
 class ProductItem {
   constructor(product) {
     this.product = product;
   }
   addToCart() {
+    // Helper class App have a static method that point to shopping cart addProduct method.
     App.addProductToCart(this.product);
     // console.log("Adding product to cart...");
     // console.log(this.product);
@@ -103,7 +108,7 @@ class ProductList {
 class Shop {
   render() {
     const renderHook = document.getElementById("app");
-    this.cart = new ShopCart();
+    this.cart = new ShoppingCart();
     const cartEl = this.cart.render();
     const productList = new ProductList();
     const productEl = productList.render();
@@ -126,4 +131,3 @@ class App {
 }
 
 App.init();
-console.log(App.availableItems);
