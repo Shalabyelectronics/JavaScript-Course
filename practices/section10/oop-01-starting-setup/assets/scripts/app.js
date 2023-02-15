@@ -12,16 +12,43 @@ class Product {
   }
 }
 
+class ShopCart {
+  items = [];
+  addProduct(product) {
+    this.items.push(product);
+    this.totalOutput.innerHTML = `<h2>Total: \$${1}</h2>`;
+  }
+
+  updateTotal() {
+    this.currentPrice = document.querySelector("span");
+    this.totalPrice = +this.currentPrice.innerText + +this.product.price;
+  }
+  updateTotalUi() {
+    document.querySelector("span").innerText = this.totalPrice;
+  }
+  render() {
+    const shopCartEl = document.createElement("section");
+    shopCartEl.innerHTML = `
+    <h2>Total:\$${0}</h2>
+    <button>Order Now!</button>
+    `;
+    shopCartEl.className = "cart";
+    this.totalOutput = shopCartEl.querySelector("h2");
+    return shopCartEl;
+  }
+}
+
 class ProductItem {
   constructor(product) {
     this.product = product;
   }
   addToCart() {
-    console.log("Adding product to cart...");
-    console.log(this.product);
-    const toCartClass = new ShopCart(this.product);
-    toCartClass.updateTotal();
-    toCartClass.updateTotalUi();
+    App.addProductToCart(this.product);
+    // console.log("Adding product to cart...");
+    // console.log(this.product);
+    // const toCartClass = new ShopCart(this.product);
+    // toCartClass.updateTotal();
+    // toCartClass.updateTotalUi();
   }
   render() {
     const createNewLi = document.createElement("li");
@@ -44,43 +71,6 @@ class ProductItem {
   }
 }
 
-class ShopCart {
-  constructor(product) {
-    this.product = product;
-  }
-  allProduct = [];
-  addProducts(newProduct) {
-    if (this.allProduct) {
-      for (const product of this.allProduct) {
-        if (product.title in newProduct) {
-          continue;
-        }
-        this.allProduct.push(newProduct);
-      }
-    }
-    return this.allProduct;
-  }
-  updateTotal() {
-    // const newTotal = document.querySelector("span");
-    // const totalPrice = this.currentPrice + this.product.price;
-    // newTotal.innerText = totalPrice;
-    this.currentPrice = document.querySelector("span");
-    this.totalPrice = +this.currentPrice.innerText + +this.product.price;
-  }
-  updateTotalUi() {
-    document.querySelector("span").innerText = this.totalPrice;
-  }
-  render() {
-    const shopCartEl = document.createElement("section");
-    shopCartEl.innerHTML = `
-    <h2>Total:\$<span>${0}</span></h2>
-    <button>Order Now!</button>
-    `;
-    shopCartEl.className = "cart";
-    return shopCartEl;
-  }
-}
-
 class ProductList {
   products = [
     new Product(
@@ -95,11 +85,9 @@ class ProductList {
       "300",
       "Start to live an Adventure"
     ),
-    new Product(),
   ];
 
   render() {
-    const productBoard = document.getElementById("app");
     const productUl = document.createElement("ul");
     productUl.className = "product-list";
 
@@ -108,18 +96,34 @@ class ProductList {
       const itemObj = itemList.render();
       productUl.append(itemObj);
     }
-    productBoard.append(productUl);
+    return productUl;
   }
 }
 
 class Shop {
   render() {
-    const shopApp = document.getElementById("app");
-    const shopCart = new ShopCart();
-    shopApp.append(shopCart.render());
-    const myProducts = new ProductList();
-    myProducts.render();
+    const renderHook = document.getElementById("app");
+    this.cart = new ShopCart();
+    const cartEl = this.cart.render();
+    const productList = new ProductList();
+    const productEl = productList.render();
+
+    renderHook.append(cartEl);
+    renderHook.append(productEl);
   }
 }
 
-new Shop().render();
+class App {
+  static cart;
+  static init() {
+    const shop = new Shop();
+    shop.render();
+    this.cart = shop.cart;
+  }
+  static addProductToCart(product) {
+    this.cart.addProduct(product);
+  }
+}
+
+App.init();
+console.log(App.availableItems);
