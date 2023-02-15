@@ -21,9 +21,25 @@ class ElementAttribute {
 }
 
 class Componant {
+  products = [
+    new Product(
+      "Samsung smart tv",
+      "https://images.samsung.com/is/image/samsung/p5/sa/tvs/smart-tv/highlights/smart-tv-f02-pc001.jpg?$ORIGIN_JPG$",
+      "500",
+      "A nice tv to have"
+    ),
+    new Product(
+      "Platstation 5",
+      "https://www.alhub.me/wp-content/uploads/2022/09/ps5-1-1591910417-1.png",
+      "300",
+      "Start to live an Adventure"
+    ),
+  ];
   constructor(renderHookId) {
     this.hookId = renderHookId;
+    this.render();
   }
+  render() {}
   creatRootElement(tag, cssClass, attributes) {
     const rootElement = document.createElement(tag);
     if (cssClass) {
@@ -120,42 +136,31 @@ class ProductItem extends Componant {
 }
 
 class ProductList extends Componant {
+  get myProducts() {
+    return this.products;
+  }
+
   constructor(renderHookId) {
     super(renderHookId);
   }
-  products = [
-    new Product(
-      "Samsung smart tv",
-      "https://images.samsung.com/is/image/samsung/p5/sa/tvs/smart-tv/highlights/smart-tv-f02-pc001.jpg?$ORIGIN_JPG$",
-      "500",
-      "A nice tv to have"
-    ),
-    new Product(
-      "Platstation 5",
-      "https://www.alhub.me/wp-content/uploads/2022/09/ps5-1-1591910417-1.png",
-      "300",
-      "Start to live an Adventure"
-    ),
-  ];
 
   render() {
     this.creatRootElement("ul", "product-list", [
       new ElementAttribute("id", "product-list"),
     ]);
-
     for (const product of this.products) {
-      const itemList = new ProductItem(product, "product-list");
-      const itemObj = itemList.render();
+      new ProductItem(product, "product-list");
     }
   }
 }
 
 class Shop {
+  constructor() {
+    this.render();
+  }
   render() {
     this.cart = new ShoppingCart("app");
-    this.cart.render();
     const productList = new ProductList("app");
-    productList.render();
   }
 }
 
@@ -163,7 +168,6 @@ class App {
   static cart;
   static init() {
     const shop = new Shop();
-    shop.render();
     this.cart = shop.cart;
   }
   static addProductToCart(product) {
