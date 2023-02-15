@@ -49,7 +49,9 @@ class ShoppingCart extends Componant {
 
   set cartItems(value) {
     this.items = value;
-    this.totalOutput.innerHTML = `<h2>Total: \$${this.getTotal}</h2>`;
+    this.totalOutput.innerHTML = `<h2>Total: \$${this.getTotal.toFixed(
+      2
+    )}</h2>`;
   }
 
   get getTotal() {
@@ -117,7 +119,10 @@ class ProductItem extends Componant {
   }
 }
 
-class ProductList {
+class ProductList extends Componant {
+  constructor(renderHookId) {
+    super(renderHookId);
+  }
   products = [
     new Product(
       "Samsung smart tv",
@@ -134,15 +139,14 @@ class ProductList {
   ];
 
   render() {
-    const productUl = document.createElement("ul");
-    productUl.className = "product-list";
+    this.creatRootElement("ul", "product-list", [
+      new ElementAttribute("id", "product-list"),
+    ]);
 
     for (const product of this.products) {
-      const itemList = new ProductItem(product, "app");
+      const itemList = new ProductItem(product, "product-list");
       const itemObj = itemList.render();
-      productUl.append(itemObj);
     }
-    return productUl;
   }
 }
 
@@ -150,7 +154,7 @@ class Shop {
   render() {
     this.cart = new ShoppingCart("app");
     this.cart.render();
-    const productList = new ProductList();
+    const productList = new ProductList("app");
     productList.render();
   }
 }
