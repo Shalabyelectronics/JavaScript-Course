@@ -27,6 +27,7 @@ class Componant {
       this.render();
     }
   }
+  // This Render Method will be overridding from sub-classes
   render() {}
   creatRootElement(tag, cssClass, attributes) {
     const rootElement = document.createElement(tag);
@@ -46,13 +47,20 @@ class Componant {
 // ShoppingCart class will create an Object that hold two methods and one field
 class ShoppingCart extends Componant {
   constructor(hookId) {
-    super(hookId);
+    super(hookId, false);
+    this.orderProducts = () => {
+      console.log("Ordering....");
+      console.log(this.items);
+    };
+    this.render();
   }
   // items field that will holds all tems you added to cart
   items = [];
 
   set cartItems(value) {
     this.items = value;
+    console.log("Inside setter", this.items);
+
     this.totalOutput.innerHTML = `<h2>Total: \$${this.getTotal.toFixed(
       2
     )}</h2>`;
@@ -70,14 +78,7 @@ class ShoppingCart extends Componant {
     updateItems.push(product);
     this.cartItems = updateItems;
   }
-  // update Total and updateTotalUi this my try and I didn't use it for this project
-  updateTotal() {
-    this.currentPrice = document.querySelector("span");
-    this.totalPrice = +this.currentPrice.innerText + +this.product.price;
-  }
-  updateTotalUi() {
-    document.querySelector("span").innerText = this.totalPrice;
-  }
+
   // render method will creat an shopCart Elementand return it to add it to app later.
   render() {
     const cartEl = this.creatRootElement("section", "cart");
@@ -86,6 +87,8 @@ class ShoppingCart extends Componant {
     <button>Order Now!</button>
     `;
     this.totalOutput = cartEl.querySelector("h2");
+    const orderBtn = document.querySelector("button");
+    orderBtn.addEventListener("click", this.orderProducts);
   }
 }
 
@@ -99,11 +102,6 @@ class ProductItem extends Componant {
   addToCart() {
     // Helper class App have a static method that point to shopping cart addProduct method.
     App.addProductToCart(this.product);
-    // console.log("Adding product to cart...");
-    // console.log(this.product);
-    // const toCartClass = new ShopCart(this.product);
-    // toCartClass.updateTotal();
-    // toCartClass.updateTotalUi();
   }
   render() {
     const createNewLi = this.creatRootElement("li", "product-item");
@@ -121,6 +119,7 @@ class ProductItem extends Componant {
       `;
     const addBtn = createNewLi.querySelector("button");
     addBtn.addEventListener("click", this.addToCart.bind(this));
+    console.log(addBtn);
   }
 }
 
@@ -171,7 +170,7 @@ class Shop {
   }
   render() {
     this.cart = new ShoppingCart("app");
-    const productList = new ProductList("app");
+    new ProductList("app");
   }
 }
 
