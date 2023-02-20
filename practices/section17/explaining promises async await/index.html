@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Async Code</title>
+    <script src="app.js" defer></script>
+    <style>
+      body {
+        margin: 100px;
+        font-size: 20px;
+      }
+      button {
+        display: block;
+        margin: 0 auto;
+        font-size: inherit;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      .demo-data {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      input {
+        border: 0;
+        outline: 0;
+        text-align: center;
+        font-size: inherit;
+      }
+      p {
+        text-align: center;
+        background-color: rgb(3, 3, 3);
+        color: #fff;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <button>Get Demo Data</button>
+    <div class="demo-data">
+      <input type="text" value="First name" id="first-name" />
+      <input type="text" value="Last name" id="last-name" />
+      <input type="text" value="Email" id="email" />
+    </div>
+    <p></p>
+  </body>
+</html>
