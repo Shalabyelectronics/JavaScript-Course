@@ -1,4 +1,3 @@
-const finishBtn = document.querySelector("p1");
 const btn = document.querySelectorAll("button");
 
 const finishedProject = (e) => {
@@ -20,21 +19,18 @@ const activeProject = (e) => {
 };
 
 const swapCards = (nodeElement) => {
-  // console.log(nodeElement.target.parentElement.parentElement.parentElement);
   nodeElement.target.removeEventListener("click", swapCards);
   const jobSection =
     nodeElement.target.parentElement.parentElement.parentElement.id;
   const copyNode = nodeElement.target.parentElement.cloneNode(true);
   nodeElement.target.parentElement.remove();
   if (jobSection === "active-projects") {
-    // console.log(copyNode);
     copyNode.lastElementChild.innerText = "Activate";
     copyNode.lastElementChild.addEventListener("click", swapCards);
     document
       .getElementById("finished-projects")
       .lastElementChild.append(copyNode);
   } else if (jobSection === "finished-projects") {
-    console.log(copyNode.lastElementChild);
     copyNode.lastElementChild.innerText = "Finish";
     copyNode.lastElementChild.addEventListener("click", swapCards);
     document
