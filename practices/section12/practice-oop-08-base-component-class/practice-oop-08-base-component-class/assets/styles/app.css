@@ -20,7 +20,7 @@ body {
 }
 
 #main-header h1 {
-  color: #fff;
+  color: white;
   margin: 0;
 }
 
@@ -123,27 +123,4 @@ button:active {
 #finished-projects header h2 {
   color: white;
   margin: 0;
-}
-
-.info {
-  max-width: 40rem;
-  background-color: #bdbbbb;
-  margin: 1rem auto;
-  padding: 0.1rem;
-  border-radius: 20px;
-}
-
-.info > p {
-  padding: 0 10px;
-  font-size: 1.3rem;
-  font-weight: 600;
-  word-wrap: normal;
-}
-
-.more-info {
-  max-width: 40rem;
-  margin: 10px auto;
-  text-align: center;
-  font-size: 1.5rem;
-  border-bottom: 2px solid #bdbbbb;
 }
