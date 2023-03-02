@@ -1,17 +1,8 @@
-const fs = require('fs');
-
-fs.readFile('user-data.txt', (err, data) => {
+const fs = require("fs");
+fs.writeFile("./text.txt", "Hi it me shalaby", (err) => {
   if (err) {
-    console.log(err);
-    return;
-  }
-  console.log(data.toString());
-});
-
-fs.writeFile('user-data.txt', 'username=Max', err => {
-  if (err) {
-    console.log(err);
+    console.log("Sorry something went wrong");
   } else {
-    console.log('Wrote to file!');
+    console.log("Done!");
   }
 });
